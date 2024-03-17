@@ -12,9 +12,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { ThemeSelectorComponent } from './components';
 import { Stream } from './models';
-import { SupabaseService, ThemeService } from './services';
+import { SupabaseService } from './services';
 import { streamInitAction } from './state';
 
 interface ListItem {
@@ -29,7 +29,7 @@ interface ListCategory {
   items: Array<ListItem>;
 }
 
-const components: Array<Type<unknown>> = [];
+const components: Array<Type<unknown>> = [ThemeSelectorComponent];
 const directives: Array<Type<unknown>> = [LetDirective, RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
   ClipboardModule,
@@ -43,7 +43,7 @@ const modules: Array<Type<unknown>> = [
   MatToolbarModule,
   MatTooltipModule,
 ];
-const services: Array<Type<unknown>> = [SupabaseService, ThemeService];
+const services: Array<Type<unknown>> = [SupabaseService];
 
 @Component({
   selector: 'sqzy-app',
@@ -56,7 +56,6 @@ const services: Array<Type<unknown>> = [SupabaseService, ThemeService];
 })
 export class AppComponent implements OnInit {
   readonly currentLocation: string = this.router.url;
-  readonly isDarkTheme$: Observable<boolean> = this.themeService.isDarkTheme$;
   readonly navigationCategories: Array<ListCategory> = [
     {
       header: 'Directory',
@@ -102,7 +101,6 @@ export class AppComponent implements OnInit {
     private readonly snackBar: MatSnackBar,
     private readonly store: Store,
     private readonly supabaseService: SupabaseService,
-    private readonly themeService: ThemeService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -151,9 +149,5 @@ export class AppComponent implements OnInit {
 
   async onToggleDrawerClicked(): Promise<void> {
     await this.drawer.toggle();
-  }
-
-  onToggleThemeClicked(): void {
-    this.themeService.toggleTheme();
   }
 }

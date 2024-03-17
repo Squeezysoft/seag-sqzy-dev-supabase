@@ -41,7 +41,7 @@ $soft-white: rgba(225, 225, 225, 1);
 
 // Apply the dark theme
 .sqzy-dark-mode-theme {
-  @include mat.all-component-themes($dark-mode-theme);
+  @include mat.all-component-colors($dark-mode-theme);
   background-color: $soft-black;
   color: $soft-white;
 

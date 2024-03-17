@@ -14,16 +14,7 @@
     <h1 class="sqzy-toolbar-title">{{ title }}</h1>
   </div>
   <div class="sqzy-toolbar-action-items-right">
-    <ng-container *ngrxLet="isDarkTheme$ as isDarkTheme">
-      <button
-        mat-icon-button
-        (click)="onToggleThemeClicked()"
-        [matTooltip]="isDarkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-        [matTooltipPosition]="'below'"
-      >
-        <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
-      </button>
-    </ng-container>
+    <sqzy-theme-selector></sqzy-theme-selector>
     <button mat-icon-button (click)="onBookmarkClicked()" matTooltip="Save Bookmark" matTooltipPosition="below">
       <mat-icon>bookmark</mat-icon>
     </button>
