@@ -1,6 +1,5 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -13,8 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Subscription, fromEvent, timer } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { Subscription, timer } from 'rxjs';
 import { StoryboardImageStore } from './storyboard-image.store';
 
 const components: Array<Type<unknown>> = [];
@@ -32,7 +31,7 @@ const services: Array<Type<unknown>> = [StoryboardImageStore];
   styleUrl: './storyboard-image.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StoryboardImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class StoryboardImageComponent implements OnInit, OnChanges, OnDestroy {
   readonly vm$ = this.store.vm$;
 
   isHovered: boolean = false;
@@ -52,10 +51,6 @@ export class StoryboardImageComponent implements OnInit, AfterViewInit, OnChange
     this.setupTimer();
   }
 
-  ngAfterViewInit(): void {
-    this.setupHover();
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     const { duration, imageUrls } = changes;
 
@@ -69,9 +64,7 @@ export class StoryboardImageComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnDestroy(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-    }
+    this.clearTimer();
   }
 
   onMouseEnter(event: MouseEvent): void {
@@ -82,18 +75,14 @@ export class StoryboardImageComponent implements OnInit, AfterViewInit, OnChange
     this.isHovered = false;
   }
 
-  private setupHover(): void {
-    const enter$ = fromEvent(this.imageElementRef.nativeElement, 'mouseenter');
-    const leave$ = fromEvent(this.imageElementRef.nativeElement, 'mouseleave');
-
-    enter$.pipe(untilDestroyed(this)).subscribe(() => console.log('onMouseEnter'));
-    leave$.pipe(untilDestroyed(this)).subscribe(() => console.log('onMouseLeave'));
-  }
-
-  private setupTimer(): void {
+  private clearTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+  }
+
+  private setupTimer(): void {
+    this.clearTimer();
     this.timerSubscription = timer(0, this.duration).subscribe(() => {
       if (this.imageUrls.length > 0 && this.isHovered) {
         this.store.incrementIndex();

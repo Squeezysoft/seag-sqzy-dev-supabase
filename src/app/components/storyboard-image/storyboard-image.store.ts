@@ -63,11 +63,11 @@ export class StoryboardImageStore extends ComponentStore<StoryboardImageState> {
         const requests = urls.map((url) => this.http.get(url, { responseType: 'blob' }));
         return forkJoin(requests).pipe(
           switchMap((blobs: Array<Blob>) => {
-            return forkJoin(blobs.map((blob) => this.readBlobFile$(blob)));
+            const results = blobs.map((blob) => this.readBlobFile$(blob));
+            return forkJoin(results);
           }),
           tapResponse(
-            (results: Array<string>) => {
-              const safeUrls = results.map((result) => this.sanitizer.bypassSecurityTrustUrl(result));
+            (safeUrls: Array<SafeUrl>) => {
               this.patchState({ safeUrls: safeUrls });
             },
             (error) => {
@@ -82,11 +82,13 @@ export class StoryboardImageStore extends ComponentStore<StoryboardImageState> {
     );
   });
 
-  private readBlobFile$(blob: Blob): Observable<string> {
+  private readBlobFile$(blob: Blob): Observable<SafeUrl> {
     return new Observable((observer) => {
       const reader = new FileReader();
       reader.onloadend = (event: ProgressEvent<FileReader>) => {
-        observer.next(<string>reader.result);
+        const result = <string>reader.result;
+        const safeUrl = this.sanitizer.bypassSecurityTrustUrl(result);
+        observer.next(safeUrl);
         observer.complete();
       };
       reader.onerror = (event: ProgressEvent<FileReader>) => {
