@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,12 +7,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs';
 import { StoryboardImageComponent } from '../../components';
 import { TimeSpanPipe } from '../../directives';
 import { Stream } from '../../models';
 import { SupabaseService } from '../../services';
-import { streamInitAction } from '../../state';
+import { selectAllStreams } from '../../state';
 
 const components: Array<Type<unknown>> = [StoryboardImageComponent];
 const directives: Array<Type<unknown>> = [
@@ -35,40 +34,10 @@ const services: Array<Type<unknown>> = [SupabaseService];
   styleUrl: './home-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent implements OnInit {
-  streamsSubject: BehaviorSubject<Array<Stream>> = new BehaviorSubject<Array<Stream>>([]);
-  streams$ = this.streamsSubject.asObservable();
+export class HomePageComponent {
+  readonly streams$ = this.store.select(selectAllStreams);
 
-  constructor(
-    private readonly store: Store,
-    private readonly supabaseService: SupabaseService,
-  ) {}
-
-  async ngOnInit(): Promise<void> {
-    // this.supabaseService.getRealtime('rooms', 'status');
-
-    const table = 'streams';
-    const query = `
-      *,
-      chapters (
-        id,
-        offset,
-        duration,
-        game:games ( id, title, description, slug, thumbnailUrl )
-      ),
-      tags ( id, name )
-    `;
-    const streams = await this.supabaseService.getDatabaseRows<Stream>(table, query);
-    streams.forEach((stream) => {
-      stream.thumbnailUrls = [...Array(6).keys()].map((i) => {
-        const path = `${stream.broadcastId}/${stream.broadcastId}-storyboard-${i}.jpg`;
-        return this.supabaseService.getStorageUrl('thumbnails', path);
-      });
-    });
-    console.log('streams:', streams);
-    this.streamsSubject.next(streams);
-    this.store.dispatch(streamInitAction({ streams: streams }));
-  }
+  constructor(private readonly store: Store) {}
 
   async onThumbnailClicked(stream: Stream): Promise<void> {
     console.log('onThumbnailClicked:', stream);

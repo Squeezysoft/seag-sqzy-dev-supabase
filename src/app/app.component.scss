@@ -1,12 +1,65 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.sqzy-main {
   align-items: center;
-  padding: 12px;
+  box-sizing: inherit;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  padding: 1rem;
+  padding-top: 80px;
+  position: relative;
+  width: 100%;
 }
 
-.angular-logo {
-  margin-bottom: 12px;
-  max-width: 12rem;
+.sqzy-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 700px;
+  width: 100%;
+}
+
+.sqzy-seagull-icon {
+  height: 48px;
+  width: 48px;
+}
+
+.sqzy-fixed-position {
+  position: fixed;
+  z-index: 2;
+}
+
+.sqzy-toolbar-action-items {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .sqzy-toolbar-action-items-left {
+    align-items: center;
+    display: flex;
+  }
+
+  .sqzy-toolbar-action-items-right {
+  }
+}
+
+.sqzy-drawer-content {
+  overflow-x: hidden;
+}
+
+.sqzy-full-height {
+  height: 100%;
+}
+
+.sqzy-navigation-list {
+  padding-top: 80px;
+
+  .sqzy-navigation-list-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
 }
