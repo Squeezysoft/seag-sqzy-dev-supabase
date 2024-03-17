@@ -1,4 +1,5 @@
 import { Component, OnInit, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Type, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -17,6 +18,7 @@ const services: Array<Type<unknown>> = [SupabaseService];
   providers: [...services],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   constructor(
