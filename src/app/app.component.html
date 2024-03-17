@@ -1,13 +1,13 @@
-<mat-toolbar class="sqzy-fixed-position sqzy-toolbar-action-items">
+<mat-toolbar color="primary" class="sqzy-fixed-position sqzy-toolbar-action-items">
   <div class="sqzy-toolbar-action-items-left">
     <img src="/assets/images/seagull.png" class="sqzy-seagull-icon" />
     <button
       mat-icon-button
       [matTooltip]="drawer.opened ? 'Close Navigation' : 'Open Navigation'"
-      matTooltipPosition="below"
+      [matTooltipPosition]="'below'"
       (click)="onToggleDrawerClicked()"
     >
-      <mat-icon>menu</mat-icon>
+      <mat-icon>{{ drawer.opened ? 'list' : 'menu' }}</mat-icon>
     </button>
     <h2>{{ title }}</h2>
   </div>
@@ -17,7 +17,7 @@
         mat-icon-button
         (click)="onToggleThemeClicked()"
         [matTooltip]="isDarkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-        matTooltipPosition="below"
+        [matTooltipPosition]="'below'"
       >
         <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
@@ -36,9 +36,8 @@
     </button>
   </div>
 </mat-toolbar>
-<mat-drawer-container autosize class="sqzy-full-height">
-  <!-- TODO: Fix scrollbar going under top toolbar. -->
-  <mat-drawer #drawer mode="side">
+<mat-sidenav-container class="sqzy-sidenav-container">
+  <mat-sidenav #drawer mode="side">
     <mat-list class="sqzy-navigation-list">
       @for (category of navigationCategories; track category.header) {
         <div mat-subheader>{{ category.header }}</div>
@@ -51,12 +50,12 @@
         }
       }
     </mat-list>
-  </mat-drawer>
-  <mat-drawer-content class="sqzy-drawer-content">
+  </mat-sidenav>
+  <mat-sidenav-content class="sqzy-sidenav-content">
     <main class="sqzy-main">
       <div class="sqzy-content">
         <router-outlet></router-outlet>
       </div>
     </main>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

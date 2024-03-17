@@ -39,7 +39,7 @@
       <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
       <span>[ {{ stream.broadcastId }} ]</span>
     </h1>
-    <h2>{{ stream.duration }} seconds</h2>
+    <h2>Duration: {{ stream.duration | timeSpan }}</h2>
     <mat-list>
       @for (chapter of stream.chapters; track chapter.id) {
         <mat-list-item
