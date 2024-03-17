@@ -1,0 +1,11 @@
+/dist
+/coverage
+/documentation
+/node_modules
+/TestResults
+package-lock.json
+.angular
+.vscode
+**/test-setup.ts
+**/zone-flags.ts
+**/polyfills.ts

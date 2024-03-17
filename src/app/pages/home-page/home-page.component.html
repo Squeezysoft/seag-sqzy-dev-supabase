@@ -1,0 +1,35 @@
+@for (stream of streams$ | async; track stream.id) {
+  <mat-card class="container-card">
+    <h1>
+      <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
+      <span>[ {{ stream.broadcastId }} ]</span>
+    </h1>
+    <h2>{{ stream.duration }} seconds</h2>
+    <mat-list>
+      @for (chapter of stream.chapters; track chapter.id) {
+        <mat-list-item
+          [routerLink]="['games', chapter.game.slug]"
+          [routerLinkActive]="['active']"
+          [matTooltip]="chapter.game.description"
+          [matTooltipPosition]="'right'"
+          [matTooltipPositionAtOrigin]="false"
+          class="chapter-list-item"
+        >
+          <img matListItemAvatar [src]="chapter.game.thumbnailUrl" [alt]="chapter.game.title" />
+          <h4 matListItemTitle>{{ chapter.game.title }}</h4>
+          <p matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</p>
+        </mat-list-item>
+      }
+    </mat-list>
+    <sqzy-storyboard-image
+      [imageUrls]="stream.thumbnailUrls"
+      [duration]="500"
+      (click)="onThumbnailClicked(stream)"
+    ></sqzy-storyboard-image>
+    <mat-chip-listbox>
+      @for (tag of stream.tags; track tag.id) {
+        <mat-chip>{{ tag.name }}</mat-chip>
+      }
+    </mat-chip-listbox>
+  </mat-card>
+}
