@@ -6,9 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+const darkModeThemeClassName = 'sqzy-dark-mode-theme';
+const lightModeThemeClassName = 'sqzy-light-mode-theme';
+
 enum ThemeType {
-  DarkMode,
-  LightMode,
+  DarkMode = darkModeThemeClassName,
+  LightMode = lightModeThemeClassName,
 }
 
 interface MenuEntry {
@@ -33,9 +36,8 @@ const services: Array<Type<unknown>> = [];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeSelectorComponent implements OnInit {
-  private readonly darkModeThemeClassName: string = 'sqzy-dark-mode-theme';
-  private readonly lightModeThemeClassName: string = 'sqzy-light-mode-theme';
   private readonly matchQuerySelector: string = '(prefers-color-scheme: dark)';
+  private readonly themeKey: string = 'theme';
 
   readonly themeType = ThemeType;
   readonly menuEntries: Array<MenuEntry> = [
@@ -50,22 +52,38 @@ export class ThemeSelectorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const themeQuery = this.media.matchMedia(this.matchQuerySelector);
-    if (themeQuery.matches) {
-      this.renderer.addClass(this.document.body, this.darkModeThemeClassName);
+    const theme = this.getTheme();
+    if (theme) {
+      this.renderer.addClass(this.document.body, theme);
+    } else {
+      const query = this.media.matchMedia(this.matchQuerySelector);
+      if (query.matches) {
+        this.renderer.addClass(this.document.body, darkModeThemeClassName);
+        this.setTheme(darkModeThemeClassName);
+      }
     }
   }
 
   onMenuSelected(themeType: ThemeType): void {
     switch (themeType) {
       case ThemeType.DarkMode: {
-        this.renderer.addClass(this.document.body, this.darkModeThemeClassName);
+        this.renderer.addClass(this.document.body, darkModeThemeClassName);
+        this.setTheme(darkModeThemeClassName);
         break;
       }
       case ThemeType.LightMode: {
-        this.renderer.removeClass(this.document.body, this.darkModeThemeClassName);
+        this.renderer.removeClass(this.document.body, darkModeThemeClassName);
+        this.setTheme(lightModeThemeClassName);
         break;
       }
     }
+  }
+
+  private getTheme(): string {
+    return this.document.defaultView.localStorage.getItem(this.themeKey);
+  }
+
+  private setTheme(theme: string): void {
+    this.document.defaultView.localStorage.setItem(this.themeKey, theme);
   }
 }
