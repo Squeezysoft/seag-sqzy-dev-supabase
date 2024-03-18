@@ -41,19 +41,32 @@
     </button>
   }
 </div>
+<div>
+  <mat-form-field style="width: 100%">
+    <mat-label>Search</mat-label>
+    <mat-icon matIconPrefix>search</mat-icon>
+    <input #search matInput type="text" placeholder="Whatcha in the mood for?" />
+    @if (search.value) {
+      <button matSuffix mat-icon-button (click)="search.value = ''">
+        <mat-icon>clear</mat-icon>
+      </button>
+    }
+    <mat-hint>Search by title, game, or tags.</mat-hint>
+  </mat-form-field>
+</div>
 <div class="sqzy-container-card-region">
   @if (streams$ | async; as streams) {
     @if (streams.length > 0) {
       <div @driftInCards class="sqzy-container-card-group">
         @for (stream of streams; track stream.id) {
           <mat-card class="sqzy-container-card">
-            <h1>
+            <strong>
               <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
-              <span>[ {{ stream.broadcastId }} ]</span>
-            </h1>
-            <h2>Duration: {{ stream.duration | timeSpan }}</h2>
+            </strong>
+            <sub>{{ stream.broadcastId }}</sub>
+            <em>Duration: {{ stream.duration | timeSpan }}</em>
             <mat-list>
-              @for (chapter of stream.chapters; track chapter.id) {
+              @for (chapter of stream.chapters; track chapter.id; let index = $index) {
                 <mat-list-item
                   [routerLink]="['games', chapter.game.slug]"
                   [routerLinkActive]="['active']"
@@ -63,8 +76,11 @@
                   class="sqzy-chapter-list-item"
                 >
                   <img matListItemAvatar [src]="chapter.game.thumbnailUrl" [alt]="chapter.game.title" />
-                  <h4 matListItemTitle>{{ chapter.game.title }}</h4>
-                  <p matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</p>
+                  <div matListItemTitle>{{ chapter.game.title }}</div>
+                  <div matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</div>
+                  <div matListItemMeta>
+                    <mat-icon>{{ 'filter_' + (index + 1) }}</mat-icon>
+                  </div>
                 </mat-list-item>
               }
             </mat-list>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, Type, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
@@ -38,6 +39,7 @@ const modules: Array<Type<unknown>> = [
   CommonModule,
   MatButtonModule,
   MatCardModule,
+  MatDividerModule,
   MatIconModule,
   MatListModule,
   MatSnackBarModule,
@@ -112,6 +114,8 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.registerIcons();
     this.registerTranslations();
+
+    await this.drawer.toggle();
 
     //this.supabaseService.getRealtime('rooms', 'status');
 
