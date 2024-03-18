@@ -11,8 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeSelectorComponent } from './components';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { Stream } from './models';
@@ -32,7 +32,7 @@ interface ListCategory {
 }
 
 const components: Array<Type<unknown>> = [LanguageSelectorComponent, ThemeSelectorComponent];
-const directives: Array<Type<unknown>> = [LetDirective, RouterLink, RouterLinkActive, RouterOutlet];
+const directives: Array<Type<unknown>> = [RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
   ClipboardModule,
   CommonModule,
@@ -44,8 +44,9 @@ const modules: Array<Type<unknown>> = [
   MatSidenavModule,
   MatToolbarModule,
   MatTooltipModule,
+  TranslateModule,
 ];
-const services: Array<Type<unknown>> = [SupabaseService];
+const services: Array<Type<unknown>> = [SupabaseService, TranslateService];
 
 @Component({
   selector: 'sqzy-app',
@@ -105,10 +106,12 @@ export class AppComponent implements OnInit {
     private readonly snackBar: MatSnackBar,
     private readonly store: Store,
     private readonly supabaseService: SupabaseService,
+    private readonly translateService: TranslateService,
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.registerIcons();
+    this.registerTranslations();
 
     //this.supabaseService.getRealtime('rooms', 'status');
 
@@ -180,5 +183,11 @@ export class AppComponent implements OnInit {
     for (const [name, path] of icons) {
       this.iconRegistry.addSvgIcon(name, this.sanitizer.bypassSecurityTrustResourceUrl(path));
     }
+  }
+
+  private registerTranslations(): void {
+    this.translateService.addLangs(['en', 'es', 'de', 'fr', 'pt', 'it', 'hi', 'ru', 'vi', 'ja', 'ko', 'zh']);
+    this.translateService.setDefaultLang('en');
+    this.translateService.use('en');
   }
 }
