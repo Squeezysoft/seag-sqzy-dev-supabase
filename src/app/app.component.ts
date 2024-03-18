@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, Type, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
@@ -97,13 +98,17 @@ export class AppComponent implements OnInit {
   @ViewChild('drawer', { static: true }) drawer: MatDrawer;
 
   constructor(
+    private readonly iconRegistry: MatIconRegistry,
     private readonly router: Router,
+    private readonly sanitizer: DomSanitizer,
     private readonly snackBar: MatSnackBar,
     private readonly store: Store,
     private readonly supabaseService: SupabaseService,
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.registerIcons();
+
     this.supabaseService.getRealtime('rooms', 'status');
 
     const table = 'streams';
@@ -149,5 +154,18 @@ export class AppComponent implements OnInit {
 
   async onToggleDrawerClicked(): Promise<void> {
     await this.drawer.toggle();
+  }
+
+  private registerIcons(): void {
+    const icons: Map<string, string> = new Map([
+      ['github', 'assets/images/svg/github.svg'],
+      ['instagram', 'assets/images/svg/instagram.svg'],
+      ['twitch', 'assets/images/svg/twitch.svg'],
+      ['twitter', 'assets/images/svg/twitter.svg'],
+      ['youtube', 'assets/images/svg/youtube.svg'],
+    ]);
+    for (const [name, path] of icons) {
+      this.iconRegistry.addSvgIcon(name, this.sanitizer.bypassSecurityTrustResourceUrl(path));
+    }
   }
 }

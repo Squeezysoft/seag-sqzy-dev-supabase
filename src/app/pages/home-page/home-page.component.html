@@ -33,6 +33,24 @@
     </defs>
   </svg>
 </div>
+<mat-icon class="sqzy-live-indicator">radio_button_checked</mat-icon>
+<div class="sqzy-icon-demo-area">
+  <button mat-icon-button color="primary" type="button">
+    <mat-icon svgIcon="github"></mat-icon>
+  </button>
+  <button mat-icon-button color="accent" type="button">
+    <mat-icon svgIcon="instagram"></mat-icon>
+  </button>
+  <button mat-icon-button color="warn" type="button">
+    <mat-icon svgIcon="twitch"></mat-icon>
+  </button>
+  <button mat-icon-button color="error" type="button">
+    <mat-icon svgIcon="twitter"></mat-icon>
+  </button>
+  <button mat-icon-button color="link" type="button">
+    <mat-icon svgIcon="youtube"></mat-icon>
+  </button>
+</div>
 @for (stream of streams$ | async; track stream.id) {
   <mat-card class="sqzy-container-card">
     <h1>

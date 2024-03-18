@@ -1,3 +1,35 @@
+@keyframes pulsate {
+  from {
+    transform: scale(0.975);
+  }
+  to {
+    transform: scale(1.025);
+  }
+}
+
+@keyframes flicker {
+  from {
+    color: red;
+    text-shadow: 0 0 4px red;
+  }
+  to {
+    color: crimson;
+    text-shadow: 0 0 4px crimson;
+  }
+}
+
+.sqzy-live-indicator {
+  animation:
+    pulsate 500ms ease-in-out infinite alternate,
+    flicker 1s ease-in-out infinite alternate;
+}
+
+.sqzy-icon-demo-area {
+  .mat-icon {
+    fill: white;
+  }
+}
+
 .sqzy-center-content {
   text-align: center;
 }

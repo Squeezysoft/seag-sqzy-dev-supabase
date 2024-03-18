@@ -1,5 +1,6 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +23,14 @@ const directives: Array<Type<unknown>> = [
   RouterOutlet,
   TimeSpanPipe,
 ];
-const modules: Array<Type<unknown>> = [MatCardModule, MatChipsModule, MatIconModule, MatListModule, MatTooltipModule];
+const modules: Array<Type<unknown>> = [
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatIconModule,
+  MatListModule,
+  MatTooltipModule,
+];
 const services: Array<Type<unknown>> = [SupabaseService];
 
 @Component({
