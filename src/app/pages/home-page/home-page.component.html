@@ -34,55 +34,53 @@
   </svg>
 </div>
 <mat-icon class="sqzy-live-indicator">radio_button_checked</mat-icon>
-<div class="sqzy-icon-demo-area">
-  <button mat-icon-button color="primary" type="button">
-    <mat-icon svgIcon="github"></mat-icon>
-  </button>
-  <button mat-icon-button color="accent" type="button">
-    <mat-icon svgIcon="instagram"></mat-icon>
-  </button>
-  <button mat-icon-button color="warn" type="button">
-    <mat-icon svgIcon="twitch"></mat-icon>
-  </button>
-  <button mat-icon-button color="error" type="button">
-    <mat-icon svgIcon="twitter"></mat-icon>
-  </button>
-  <button mat-icon-button color="link" type="button">
-    <mat-icon svgIcon="youtube"></mat-icon>
-  </button>
+<div @driftInButtons class="sqzy-icon-demo-area">
+  @for (icon of icons; track icon.key) {
+    <button mat-icon-button class="sqzy-animated-button" type="button">
+      <mat-icon [svgIcon]="icon.value"></mat-icon>
+    </button>
+  }
 </div>
-@for (stream of streams$ | async; track stream.id) {
-  <mat-card class="sqzy-container-card">
-    <h1>
-      <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
-      <span>[ {{ stream.broadcastId }} ]</span>
-    </h1>
-    <h2>Duration: {{ stream.duration | timeSpan }}</h2>
-    <mat-list>
-      @for (chapter of stream.chapters; track chapter.id) {
-        <mat-list-item
-          [routerLink]="['games', chapter.game.slug]"
-          [routerLinkActive]="['active']"
-          [matTooltip]="chapter.game.description"
-          [matTooltipPosition]="'right'"
-          [matTooltipPositionAtOrigin]="false"
-          class="sqzy-chapter-list-item"
-        >
-          <img matListItemAvatar [src]="chapter.game.thumbnailUrl" [alt]="chapter.game.title" />
-          <h4 matListItemTitle>{{ chapter.game.title }}</h4>
-          <p matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</p>
-        </mat-list-item>
-      }
-    </mat-list>
-    <sqzy-storyboard-image
-      [imageUrls]="stream.thumbnailUrls"
-      [duration]="500"
-      (click)="onThumbnailClicked(stream)"
-    ></sqzy-storyboard-image>
-    <mat-chip-listbox>
-      @for (tag of stream.tags; track tag.id) {
-        <mat-chip>{{ tag.name }}</mat-chip>
-      }
-    </mat-chip-listbox>
-  </mat-card>
-}
+<div class="sqzy-container-card-region">
+  @if (streams$ | async; as streams) {
+    @if (streams.length > 0) {
+      <div @driftInCards class="sqzy-container-card-group">
+        @for (stream of streams; track stream.id) {
+          <mat-card class="sqzy-container-card">
+            <h1>
+              <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
+              <span>[ {{ stream.broadcastId }} ]</span>
+            </h1>
+            <h2>Duration: {{ stream.duration | timeSpan }}</h2>
+            <mat-list>
+              @for (chapter of stream.chapters; track chapter.id) {
+                <mat-list-item
+                  [routerLink]="['games', chapter.game.slug]"
+                  [routerLinkActive]="['active']"
+                  [matTooltip]="chapter.game.description"
+                  [matTooltipPosition]="'right'"
+                  [matTooltipPositionAtOrigin]="false"
+                  class="sqzy-chapter-list-item"
+                >
+                  <img matListItemAvatar [src]="chapter.game.thumbnailUrl" [alt]="chapter.game.title" />
+                  <h4 matListItemTitle>{{ chapter.game.title }}</h4>
+                  <p matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</p>
+                </mat-list-item>
+              }
+            </mat-list>
+            <sqzy-storyboard-image
+              [imageUrls]="stream.thumbnailUrls"
+              [duration]="500"
+              (click)="onThumbnailClicked(stream)"
+            ></sqzy-storyboard-image>
+            <mat-chip-listbox>
+              @for (tag of stream.tags; track tag.id) {
+                <mat-chip>{{ tag.name }}</mat-chip>
+              }
+            </mat-chip-listbox>
+          </mat-card>
+        }
+      </div>
+    }
+  }
+</div>

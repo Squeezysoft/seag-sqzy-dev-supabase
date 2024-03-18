@@ -157,7 +157,7 @@ export class AppComponent implements OnInit {
   }
 
   private registerIcons(): void {
-    const icons: Map<string, string> = new Map([
+    const icons = new Map<string, string>([
       ['github', 'assets/images/svg/github.svg'],
       ['instagram', 'assets/images/svg/instagram.svg'],
       ['twitch', 'assets/images/svg/twitch.svg'],
