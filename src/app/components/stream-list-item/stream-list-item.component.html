@@ -1,0 +1,86 @@
+<mat-card class="sqzy-stream-card">
+  <mat-card-header>
+    <img mat-card-avatar src="assets/images/seagull.png" alt="A_Seagull" />
+    <mat-card-title>
+      <a [routerLink]="['stream', stream.broadcastId]">{{ stream.title }}</a>
+    </mat-card-title>
+    <mat-card-subtitle>{{ stream.broadcastId }}</mat-card-subtitle>
+  </mat-card-header>
+  <div mat-card-image class="sqzy-stream-card-image">
+    <sqzy-storyboard-image
+      [imageUrls]="stream.thumbnailUrls"
+      [duration]="500"
+      (click)="onThumbnailClicked()"
+    ></sqzy-storyboard-image>
+  </div>
+  <mat-card-content>
+    <p>Duration: {{ stream.duration | timeSpan }}</p>
+    <mat-accordion displayMode="flat" multi="true">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Chapters</mat-panel-title>
+          <!-- <mat-panel-description>{{ stream.chapters.length }}</mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mat-list>
+            @for (chapter of stream.chapters; track chapter.id; let index = $index) {
+              <mat-list-item
+                [routerLink]="['games', chapter.game.slug]"
+                [routerLinkActive]="['active']"
+                [matTooltip]="chapter.game.description"
+                [matTooltipPosition]="'right'"
+                [matTooltipPositionAtOrigin]="false"
+                class="sqzy-stream-chapter-item"
+              >
+                <img matListItemAvatar [src]="chapter.game.thumbnailUrl" [alt]="chapter.game.title" />
+                <div matListItemTitle>{{ chapter.game.title }}</div>
+                <div matListItemLine>&#64; {{ chapter.offset | timeSpan }} to {{ chapter.duration | timeSpan }}</div>
+                <div matListItemMeta>
+                  <mat-icon>{{ 'filter_' + (index + 1) }}</mat-icon>
+                </div>
+              </mat-list-item>
+            }
+          </mat-list>
+        </ng-template>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Tags</mat-panel-title>
+          <!-- <mat-panel-description>{{ stream.tags.length }}</mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mat-chip-listbox>
+            @for (tag of stream.tags; track tag.id) {
+              <mat-chip>{{ tag.name }}</mat-chip>
+            }
+          </mat-chip-listbox>
+        </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button
+      mat-icon-button
+      matTooltip="Share"
+      matTooltipPosition="above"
+      color="primary"
+      [cdkCopyToClipboard]="stream.videoUrl"
+      (cdkCopyToClipboardCopied)="onClipboardCopied()"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      matTooltip="Favorite"
+      matTooltipPosition="above"
+      color="primary"
+      (click)="onFavoriteClicked()"
+    >
+      <!-- <mat-icon>favorite</mat-icon> -->
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+  </mat-card-actions>
+  <mat-card-footer>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

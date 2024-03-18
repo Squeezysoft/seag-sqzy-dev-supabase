@@ -1,0 +1,21 @@
+.sqzy-stream-card {
+  .sqzy-stream-card-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sqzy-stream-chapter-item {
+    background-color: rgba(75, 200, 250, 0.15);
+    border: 1px solid rgba(50, 175, 225, 0.35);
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.15);
+    }
+
+    &.active {
+      border: 1px solid rgba(250, 220, 210, 0.75);
+    }
+  }
+}

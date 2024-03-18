@@ -1,54 +1,24 @@
 import { AnimationTriggerMetadata, animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { AsyncPipe, JsonPipe, KeyValue } from '@angular/common';
+import { AsyncPipe, KeyValue } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { StoryboardImageComponent } from '../../components';
-import { TimeSpanPipe } from '../../directives';
-import { Stream } from '../../models';
+import { StreamListItemComponent } from '../../components';
 import { SupabaseService } from '../../services';
 import { selectAllStreams } from '../../state';
 
-const components: Array<Type<unknown>> = [StoryboardImageComponent];
-const directives: Array<Type<unknown>> = [
-  AsyncPipe,
-  JsonPipe,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-  TimeSpanPipe,
-];
-const modules: Array<Type<unknown>> = [
-  ClipboardModule,
-  MatButtonModule,
-  MatCardModule,
-  MatChipsModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatProgressBarModule,
-  MatTooltipModule,
-];
+const components: Array<Type<unknown>> = [StreamListItemComponent];
+const directives: Array<Type<unknown>> = [AsyncPipe];
+const modules: Array<Type<unknown>> = [MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule];
 const services: Array<Type<unknown>> = [SupabaseService];
 
-const driftInAnimationQuery = (triggerName: string, className: string): AnimationTriggerMetadata => {
+const driftInAnimationQuery = (triggerName: string, selectorName: string): AnimationTriggerMetadata => {
   return trigger(triggerName, [
     transition(':enter', [
-      query(className, [
+      query(selectorName, [
         style({ opacity: 0, transform: 'translateY(-100px)' }),
         stagger(100, [animate('1000ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' }))]),
       ]),
@@ -71,46 +41,13 @@ const driftInAnimationQuery = (triggerName: string, className: string): Animatio
 })
 export class HomePageComponent {
   readonly icons: Array<KeyValue<number, string>> = [
-    {
-      key: 0,
-      value: 'github',
-    },
-    {
-      key: 1,
-      value: 'instagram',
-    },
-    {
-      key: 2,
-      value: 'twitch',
-    },
-    {
-      key: 3,
-      value: 'twitter',
-    },
-    {
-      key: 4,
-      value: 'youtube',
-    },
+    { key: 0, value: 'github' },
+    { key: 1, value: 'instagram' },
+    { key: 2, value: 'twitch' },
+    { key: 3, value: 'twitter' },
+    { key: 4, value: 'youtube' },
   ];
   readonly streams$ = this.store.select(selectAllStreams);
 
-  constructor(
-    private readonly snackBar: MatSnackBar,
-    private readonly store: Store,
-  ) {}
-
-  onClipboardCopied(): void {
-    const config: MatSnackBarConfig = {
-      duration: 3000,
-    };
-    this.snackBar.open('Copied URL to clipboard.', undefined, config);
-  }
-
-  onFavoriteClicked(id: number): void {
-    console.log('onFavoriteClicked:', id);
-  }
-
-  async onThumbnailClicked(stream: Stream): Promise<void> {
-    console.log('onThumbnailClicked:', stream);
-  }
+  constructor(private readonly store: Store) {}
 }

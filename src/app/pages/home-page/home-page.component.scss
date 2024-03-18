@@ -43,28 +43,7 @@
   margin: 24px 0;
 }
 
-.sqzy-container-card-region {
-  .sqzy-container-card-group {
-    .sqzy-container-card {
-      .sqzy-card-image {
-        display: flex;
-        justify-content: center;
-      }
-    }
-  }
-}
-
-.sqzy-chapter-list-item {
-  background-color: rgba(75, 200, 250, 0.15);
-  border: 1px solid rgba(50, 175, 225, 0.35);
-  border-radius: 4px;
-
-  &:hover {
-    cursor: pointer;
-    filter: brightness(1.15);
-  }
-
-  &.active {
-    border: 1px solid rgba(250, 220, 210, 0.75);
-  }
-}
+// .sqzy-container-card-region {
+//   .sqzy-container-card-group {
+//   }
+// }
