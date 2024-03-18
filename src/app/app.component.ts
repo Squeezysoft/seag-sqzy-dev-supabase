@@ -1,4 +1,3 @@
-import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, Type, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -35,14 +33,12 @@ interface ListCategory {
 const components: Array<Type<unknown>> = [LanguageSelectorComponent, ThemeSelectorComponent];
 const directives: Array<Type<unknown>> = [RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
-  ClipboardModule,
   CommonModule,
   MatButtonModule,
   MatCardModule,
   MatDividerModule,
   MatIconModule,
   MatListModule,
-  MatSnackBarModule,
   MatSidenavModule,
   MatToolbarModule,
   MatTooltipModule,
@@ -105,7 +101,6 @@ export class AppComponent implements OnInit {
     private readonly iconRegistry: MatIconRegistry,
     private readonly router: Router,
     private readonly sanitizer: DomSanitizer,
-    private readonly snackBar: MatSnackBar,
     private readonly store: Store,
     private readonly supabaseService: SupabaseService,
     private readonly translateService: TranslateService,
@@ -143,13 +138,6 @@ export class AppComponent implements OnInit {
 
   onBookmarkClicked(): void {
     console.log('Bookmark');
-  }
-
-  onClipboardCopied(): void {
-    const config: MatSnackBarConfig = {
-      duration: 3000,
-    };
-    this.snackBar.open('Copied URL to clipboard.', undefined, config);
   }
 
   onFavoritesClicked(): void {

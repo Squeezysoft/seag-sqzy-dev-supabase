@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="sqzy-fixed-position sqzy-toolbar-action-items">
+<mat-toolbar color="accent" class="sqzy-fixed-position sqzy-toolbar-action-items">
   <div class="sqzy-toolbar-action-items-left">
     <button
       mat-icon-button
@@ -8,17 +8,8 @@
     >
       <mat-icon>{{ drawer.opened ? 'list' : 'menu' }}</mat-icon>
     </button>
-    <button mat-icon-button (click)="onBookmarkClicked()" matTooltip="Save Bookmark" matTooltipPosition="below">
-      <mat-icon>bookmark</mat-icon>
-    </button>
-    <button
-      mat-icon-button
-      matTooltip="Copy URL to Clipboard"
-      matTooltipPosition="below"
-      [cdkCopyToClipboard]="currentLocation"
-      (cdkCopyToClipboardCopied)="onClipboardCopied()"
-    >
-      <mat-icon>share</mat-icon>
+    <button mat-icon-button matTooltip="Profile" matTooltipPosition="below">
+      <mat-icon>person</mat-icon>
     </button>
   </div>
   <div class="sqzy-toolbar-action-items-center">
@@ -26,9 +17,6 @@
     <h1 class="sqzy-toolbar-title">{{ 'toolbar.title' | translate }}</h1>
   </div>
   <div class="sqzy-toolbar-action-items-right">
-    <button mat-icon-button matTooltip="Profile" matTooltipPosition="below">
-      <mat-icon>person</mat-icon>
-    </button>
     <sqzy-theme-selector></sqzy-theme-selector>
     <sqzy-language-selector></sqzy-language-selector>
   </div>

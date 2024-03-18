@@ -39,8 +39,19 @@
   max-width: 12rem;
 }
 
-.sqzy-container-card {
-  padding: 16px;
+.sqzy-search-form-field {
+  margin: 24px 0;
+}
+
+.sqzy-container-card-region {
+  .sqzy-container-card-group {
+    .sqzy-container-card {
+      .sqzy-card-image {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }
 
 .sqzy-chapter-list-item {

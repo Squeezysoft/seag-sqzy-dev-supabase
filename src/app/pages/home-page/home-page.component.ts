@@ -1,13 +1,17 @@
 import { AnimationTriggerMetadata, animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AsyncPipe, JsonPipe, KeyValue } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -27,13 +31,16 @@ const directives: Array<Type<unknown>> = [
   TimeSpanPipe,
 ];
 const modules: Array<Type<unknown>> = [
+  ClipboardModule,
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatProgressBarModule,
   MatTooltipModule,
 ];
 const services: Array<Type<unknown>> = [SupabaseService];
@@ -87,7 +94,21 @@ export class HomePageComponent {
   ];
   readonly streams$ = this.store.select(selectAllStreams);
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly snackBar: MatSnackBar,
+    private readonly store: Store,
+  ) {}
+
+  onClipboardCopied(): void {
+    const config: MatSnackBarConfig = {
+      duration: 3000,
+    };
+    this.snackBar.open('Copied URL to clipboard.', undefined, config);
+  }
+
+  onFavoriteClicked(id: number): void {
+    console.log('onFavoriteClicked:', id);
+  }
 
   async onThumbnailClicked(stream: Stream): Promise<void> {
     console.log('onThumbnailClicked:', stream);
