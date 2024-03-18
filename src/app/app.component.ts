@@ -14,6 +14,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { ThemeSelectorComponent } from './components';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { Stream } from './models';
 import { SupabaseService } from './services';
 import { streamInitAction } from './state';
@@ -30,7 +31,7 @@ interface ListCategory {
   items: Array<ListItem>;
 }
 
-const components: Array<Type<unknown>> = [ThemeSelectorComponent];
+const components: Array<Type<unknown>> = [LanguageSelectorComponent, ThemeSelectorComponent];
 const directives: Array<Type<unknown>> = [LetDirective, RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
   ClipboardModule,
@@ -109,7 +110,7 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.registerIcons();
 
-    this.supabaseService.getRealtime('rooms', 'status');
+    //this.supabaseService.getRealtime('rooms', 'status');
 
     const table = 'streams';
     const query = `
@@ -158,6 +159,18 @@ export class AppComponent implements OnInit {
 
   private registerIcons(): void {
     const icons = new Map<string, string>([
+      ['en-US', 'assets/images/svg/flags/en-US.svg'],
+      ['es-ES', 'assets/images/svg/flags/es-ES.svg'],
+      ['de-DE', 'assets/images/svg/flags/de-DE.svg'],
+      ['fr-FR', 'assets/images/svg/flags/fr-FR.svg'],
+      ['pt-BR', 'assets/images/svg/flags/pt-BR.svg'],
+      ['it-IT', 'assets/images/svg/flags/it-IT.svg'],
+      ['hi-IN', 'assets/images/svg/flags/hi-IN.svg'],
+      ['ru-RU', 'assets/images/svg/flags/ru-RU.svg'],
+      ['vi-VN', 'assets/images/svg/flags/vi-VN.svg'],
+      ['ja-JP', 'assets/images/svg/flags/ja-JP.svg'],
+      ['ko-KR', 'assets/images/svg/flags/ko-KR.svg'],
+      ['zh-CN', 'assets/images/svg/flags/zh-CN.svg'],
       ['github', 'assets/images/svg/github.svg'],
       ['instagram', 'assets/images/svg/instagram.svg'],
       ['twitch', 'assets/images/svg/twitch.svg'],

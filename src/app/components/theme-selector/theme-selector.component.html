@@ -1,9 +1,9 @@
 <button #menuTrigger mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Change Theme" matTooltipPosition="below">
   <mat-icon fontSet="material-icons-outlined">palette</mat-icon>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" xPosition="before">
   @for (menuEntry of menuEntries; track menuEntry.id) {
-    <button mat-menu-item (click)="onMenuSelected(menuEntry.type)">
+    <button mat-menu-item (click)="onMenuSelected(menuEntry.value)">
       <mat-icon>{{ menuEntry.icon }}</mat-icon>
       <span>{{ menuEntry.text }}</span>
     </button>
