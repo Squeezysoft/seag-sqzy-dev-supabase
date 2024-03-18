@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    //this.supabaseService.getRealtime('rooms', 'status');
+    this.supabaseService.getRealtime('rooms', 'status');
 
     const table = 'streams';
     const query = `

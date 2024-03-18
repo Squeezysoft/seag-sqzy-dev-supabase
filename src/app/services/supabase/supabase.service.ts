@@ -37,7 +37,9 @@ export class SupabaseService {
   }
 
   getRealtime(channelName: string, tableName: string): void {
-    const type = REALTIME_LISTEN_TYPES.POSTGRES_CHANGES;
+    const changesType = REALTIME_LISTEN_TYPES.POSTGRES_CHANGES;
+    const presenceType = REALTIME_LISTEN_TYPES.PRESENCE;
+    const broadcastType = REALTIME_LISTEN_TYPES.BROADCAST;
     const filter: RealtimePostgresChangesFilter<'*'> = {
       event: '*',
       schema: 'public',
@@ -45,11 +47,17 @@ export class SupabaseService {
     };
     const channel = this.supabase.channel(channelName);
     channel
-      .on(type, filter, (payload: RealtimePostgresChangesPayload<Record<string, any>>) => {
-        console.log('Realtime payload:', payload);
+      .on(changesType, filter, (payload: RealtimePostgresChangesPayload<Record<string, any>>) => {
+        console.log('Realtime changes:', payload);
         if (payload.errors) {
           console.error('Realtime errors:', payload.errors);
         }
+      })
+      .on(presenceType, { event: 'sync' }, () => {
+        console.log('Realtime presence sync');
+      })
+      .on(broadcastType, { event: 'sync' }, () => {
+        console.log('Realtime broadcast sync');
       })
       .subscribe((status, error) => {
         console.log('Realtime subscription status:', status);
