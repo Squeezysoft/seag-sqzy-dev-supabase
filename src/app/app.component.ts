@@ -179,6 +179,5 @@ export class AppComponent implements OnInit {
   private registerTranslations(): void {
     this.translateService.addLangs(['en', 'es', 'de', 'fr', 'pt', 'it', 'hi', 'ru', 'vi', 'ja', 'ko', 'zh']);
     this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
   }
 }

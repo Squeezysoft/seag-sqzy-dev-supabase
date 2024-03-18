@@ -7,7 +7,7 @@ export class StorageService {
 
   constructor(@Inject(DOCUMENT) private readonly document: Document) {}
 
-  geteItem(key: string): string | null {
+  getItem(key: string): string | null {
     return this.storage.getItem(key);
   }
 

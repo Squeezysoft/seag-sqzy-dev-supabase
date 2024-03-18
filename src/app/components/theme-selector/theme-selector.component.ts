@@ -48,7 +48,7 @@ export class ThemeSelectorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const theme = this.storageService.geteItem(this.themeKey);
+    const theme = this.storageService.getItem(this.themeKey);
     if (theme) {
       this.renderer.addClass(this.document.body, theme);
     } else {

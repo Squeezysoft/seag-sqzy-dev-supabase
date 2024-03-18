@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,7 @@ const services: Array<Type<unknown>> = [StorageService, TranslateService];
   styleUrl: './language-selector.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LanguageSelectorComponent {
+export class LanguageSelectorComponent implements OnInit {
   private readonly languageKey: string = 'language';
 
   readonly menuEntries: Array<MenuEntry<string>> = [
@@ -51,8 +51,17 @@ export class LanguageSelectorComponent {
     private readonly translateService: TranslateService,
   ) {}
 
+  ngOnInit(): void {
+    const storageLanguage = this.storageService.getItem(this.languageKey);
+    const browserLanguage = this.translateService.getBrowserLang();
+    if (storageLanguage) {
+      this.translateService.use(storageLanguage);
+    } else if (browserLanguage) {
+      this.translateService.use(browserLanguage);
+    }
+  }
+
   onMenuSelected(language: string): void {
-    console.log('onMenuSelected:', language);
     this.storageService.setItem(this.languageKey, language);
     this.translateService.use(language);
   }
