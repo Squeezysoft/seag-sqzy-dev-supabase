@@ -8,12 +8,22 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSelectorComponent, NavigationDrawerComponent, ThemeSelectorComponent } from './components';
+import {
+  AccountSelectorComponent,
+  LanguageSelectorComponent,
+  NavigationDrawerComponent,
+  ThemeSelectorComponent,
+} from './components';
 import { Stream } from './models';
 import { SupabaseService } from './services';
 import { streamInitAction } from './state';
 
-const components: Array<Type<unknown>> = [LanguageSelectorComponent, NavigationDrawerComponent, ThemeSelectorComponent];
+const components: Array<Type<unknown>> = [
+  AccountSelectorComponent,
+  LanguageSelectorComponent,
+  NavigationDrawerComponent,
+  ThemeSelectorComponent,
+];
 const directives: Array<Type<unknown>> = [RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
   MatButtonModule,

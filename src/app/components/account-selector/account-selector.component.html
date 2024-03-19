@@ -1,0 +1,64 @@
+<button #menuTrigger mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Account" matTooltipPosition="below">
+  <mat-icon>person</mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before" class="sqzy-menu-panel">
+  <mat-list>
+    <mat-list-item>
+      <img matListItemAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Dog" />
+      <div matListItemTitle>Doo Doo Squeezy</div>
+      <div matListItemLine>doodoosqueezy&#64;gmail.com</div>
+      <div matListItemMeta>
+        <button mat-icon-button>
+          @if (notificationCount > 0) {
+            <mat-icon
+              [matBadge]="notificationCount"
+              matBadgeColor="warn"
+              matBadgeSize="small"
+              [matBadgeHidden]="false"
+              aria-hidden="false"
+            >
+              notifications
+            </mat-icon>
+          } @else {
+            <mat-icon
+              [matBadge]="0"
+              matBadgeColor="warn"
+              matBadgeSize="small"
+              [matBadgeHidden]="true"
+              aria-hidden="true"
+            >
+              notifications_none
+            </mat-icon>
+          }
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>manage_accounts</mat-icon>
+    <div>Management</div>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>handshake</mat-icon>
+    <div>Contribute</div>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>cloud_download</mat-icon>
+    <div>Updates</div>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>app_registration</mat-icon>
+    <div>Register</div>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>login</mat-icon>
+    <div>Login</div>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>logout</mat-icon>
+    <div>Logout</div>
+  </button>
+</mat-menu>
