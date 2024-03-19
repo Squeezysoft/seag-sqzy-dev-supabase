@@ -1,6 +1,6 @@
 <mat-nav-list class="sqzy-navigation-list">
   @for (category of categories; track category.id; let last = $last) {
-    <h3 mat-subheader>{{ category.header }}</h3>
+    <h3 mat-subheader>{{ category.header | translate }}</h3>
     @for (item of category.items; track item.id) {
       <mat-list-item
         class="sqzy-navigation-list-item sqzy-navigation-list-item-{{ item.icon }}"
@@ -8,8 +8,8 @@
         routerLinkActive="sqzy-navigation-list-item-active"
       >
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-        <div matListItemTitle>{{ item.title }}</div>
-        <div matListItemLine>{{ item.subtitle }}</div>
+        <div matListItemTitle>{{ item.title | translate }}</div>
+        <div matListItemLine>{{ item.subtitle | translate }}</div>
       </mat-list-item>
     }
     @if (!last) {

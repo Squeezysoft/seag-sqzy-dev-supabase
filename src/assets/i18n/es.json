@@ -1,5 +1,29 @@
 {
   "toolbar": {
     "title": "Archivo de Gaviota"
+  },
+  "navbar": {
+    "category": {
+      "directory": "Directorio",
+      "system": "Sistema"
+    },
+    "item": {
+      "dashboard": {
+        "title": "Panel",
+        "subtitle": "Ver todos los VOD existentes."
+      },
+      "favorites": {
+        "title": "Favoritos",
+        "subtitle": "Ver tus VOD favoritos."
+      },
+      "settings": {
+        "title": "Ajustes",
+        "subtitle": "Ajusta la configuración de tu perfil."
+      },
+      "about": {
+        "title": "Acerca De",
+        "subtitle": "Conozca más sobre esta aplicación."
+      }
+    }
   }
 }

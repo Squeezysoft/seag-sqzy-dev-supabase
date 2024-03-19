@@ -3,11 +3,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 const components: Array<Type<unknown>> = [];
 const directives: Array<Type<unknown>> = [RouterLink, RouterLinkActive];
-const modules: Array<Type<unknown>> = [MatDividerModule, MatIconModule, MatListModule];
+const modules: Array<Type<unknown>> = [MatDividerModule, MatIconModule, MatListModule, TranslateModule];
 const services: Array<Type<unknown>> = [TranslateService];
 
 interface ListItem {
@@ -37,19 +37,19 @@ export class NavigationDrawerComponent {
   readonly categories: Array<ListCategory> = [
     {
       id: 0,
-      header: 'Directory',
+      header: 'navbar.category.directory',
       items: [
         {
           id: 0,
-          title: 'Dashboard',
-          subtitle: 'View all existing VODs.',
+          title: 'navbar.item.dashboard.title',
+          subtitle: 'navbar.item.dashboard.subtitle',
           icon: 'dashboard',
           link: ['/'],
         },
         {
           id: 1,
-          title: 'Favorites',
-          subtitle: 'View your favorite VODs.',
+          title: 'navbar.item.favorites.title',
+          subtitle: 'navbar.item.favorites.subtitle',
           icon: 'favorite',
           link: ['/favorites'],
         },
@@ -57,19 +57,19 @@ export class NavigationDrawerComponent {
     },
     {
       id: 1,
-      header: 'System',
+      header: 'navbar.category.system',
       items: [
         {
           id: 0,
-          title: 'Settings',
-          subtitle: 'Adjust your profile settings.',
+          title: 'navbar.item.settings.title',
+          subtitle: 'navbar.item.settings.subtitle',
           icon: 'settings',
           link: ['/settings'],
         },
         {
           id: 1,
-          title: 'About',
-          subtitle: 'Learn about this application.',
+          title: 'navbar.item.about.title',
+          subtitle: 'navbar.item.about.subtitle',
           icon: 'help',
           link: ['/about'],
         },

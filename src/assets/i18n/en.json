@@ -1,5 +1,29 @@
 {
   "toolbar": {
     "title": "Seagull Archive"
+  },
+  "navbar": {
+    "category": {
+      "directory": "Directory",
+      "system": "System"
+    },
+    "item": {
+      "dashboard": {
+        "title": "Dashboard",
+        "subtitle": "View all existing VODs."
+      },
+      "favorites": {
+        "title": "Favorites",
+        "subtitle": "View your favorite VODs."
+      },
+      "settings": {
+        "title": "Settings",
+        "subtitle": "Adjust your profile settings."
+      },
+      "about": {
+        "title": "About",
+        "subtitle": "Learn about this application."
+      }
+    }
   }
 }

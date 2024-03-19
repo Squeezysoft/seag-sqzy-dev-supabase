@@ -1,5 +1,29 @@
 {
   "toolbar": {
     "title": "Möwenarchiv"
+  },
+  "navbar": {
+    "category": {
+      "directory": "Verzeichnis",
+      "system": "System"
+    },
+    "item": {
+      "dashboard": {
+        "title": "Armaturenbrett",
+        "subtitle": "Alle vorhandenen VODs anzeigen."
+      },
+      "favorites": {
+        "title": "Favoriten",
+        "subtitle": "Sehen Sie sich Ihre Lieblings-VODs an."
+      },
+      "settings": {
+        "title": "Einstellungen",
+        "subtitle": "Passen Sie Ihre Profileinstellungen an."
+      },
+      "about": {
+        "title": "Über",
+        "subtitle": "Erfahren Sie mehr über diese Anwendung."
+      }
+    }
   }
 }
