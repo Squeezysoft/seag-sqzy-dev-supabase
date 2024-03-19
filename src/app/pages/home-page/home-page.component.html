@@ -34,6 +34,10 @@
   </svg>
 </div>
 <mat-icon class="sqzy-live-indicator">radio_button_checked</mat-icon>
+<button mat-raised-button type="button" (click)="onSocialsClicked()">
+  <mat-icon>public</mat-icon>
+  <span>Socials</span>
+</button>
 <div @driftInButtons class="sqzy-icon-demo-area">
   @for (icon of icons; track icon.key) {
     <button mat-icon-button class="sqzy-animated-button" type="button">

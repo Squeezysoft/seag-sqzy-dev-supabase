@@ -1,0 +1,43 @@
+::ng-deep .sqzy-social-share-panel {
+  .mat-bottom-sheet-container {
+    min-width: 420px;
+  }
+}
+
+.sqzy-social-share-list {
+  .mat-icon {
+    border-radius: 50%;
+    padding: 12px;
+  }
+
+  .mat-mdc-list-item-meta {
+    margin-top: 12px;
+  }
+
+  .sqzy-social-share-link:hover {
+    .mat-icon {
+      color: white;
+      fill: white;
+
+      &[svgIcon='twitch'] {
+        // fill: #6441a5;
+        background: #6441a5;
+      }
+
+      &[svgIcon='youtube'] {
+        // fill: #ff0000;
+        background: #ff0000;
+      }
+
+      &[svgIcon='twitter'] {
+        // fill: #1da1f2;
+        background: #1da1f2;
+      }
+
+      &[svgIcon='instagram'] {
+        // color: #e1306c;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      }
+    }
+  }
+}
