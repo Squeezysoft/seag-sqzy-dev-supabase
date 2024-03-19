@@ -73,6 +73,7 @@ export class StoryboardImageComponent implements OnInit, OnChanges, OnDestroy {
 
   onMouseLeave(event: MouseEvent): void {
     this.isHovered = false;
+    this.store.resetIndex();
   }
 
   private clearTimer(): void {

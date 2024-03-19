@@ -7,45 +7,6 @@
   }
 }
 
-@keyframes wobble-scale {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(0.9);
-  }
-  50% {
-    transform: scale(1);
-  }
-  75% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
-.sqzy-main {
-  align-items: center;
-  box-sizing: inherit;
-  display: flex;
-  justify-content: center;
-  min-height: 100%;
-  padding-top: 48px;
-  position: relative;
-  width: 100%;
-}
-
-.sqzy-content {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  max-width: 700px;
-  padding: 32px;
-  width: 100%;
-}
-
 .sqzy-fixed-position {
   position: sticky;
   top: 0;
@@ -84,58 +45,31 @@
   }
 }
 
-// .sqzy-sidenav-content {}
-
 .sqzy-sidenav-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-}
 
-.sqzy-navigation-list {
-  padding-top: 72px;
+  .sqzy-main {
+    align-items: center;
+    box-sizing: inherit;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+    padding-top: 48px;
+    position: relative;
+    width: 100%;
 
-  .sqzy-navigation-list-item {
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.15);
-
-      .mat-icon {
-        animation: wobble-scale 750ms ease-in-out forwards;
-        text-shadow:
-          0 0 1px #fff,
-          0 0 2px #fff,
-          0 0 3px #fff,
-          0 0 4px #fff;
-        transition: text-shadow 750ms linear;
-      }
-
-      &.sqzy-navigation-list-item-dashboard {
-        .mat-icon {
-          color: rgba(25, 100, 200, 1);
-        }
-      }
-
-      &.sqzy-navigation-list-item-favorite {
-        .mat-icon {
-          color: rgba(200, 25, 15, 1);
-        }
-      }
-
-      &.sqzy-navigation-list-item-settings {
-        .mat-icon {
-          color: rgba(100, 50, 175, 1);
-        }
-      }
-
-      &.sqzy-navigation-list-item-help {
-        .mat-icon {
-          color: rgba(225, 150, 50, 1);
-        }
-      }
+    .sqzy-content {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      max-width: 700px;
+      padding: 32px;
+      width: 100%;
     }
   }
 }

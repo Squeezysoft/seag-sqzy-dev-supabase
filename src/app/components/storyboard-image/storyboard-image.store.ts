@@ -56,6 +56,13 @@ export class StoryboardImageStore extends ComponentStore<StoryboardImageState> {
     };
   });
 
+  readonly resetIndex = this.updater((state) => {
+    return {
+      ...state,
+      index: 0,
+    };
+  });
+
   readonly fetchImageData = this.effect((urls$: Observable<Array<string>>) => {
     return urls$.pipe(
       tap(() => this.patchState({ isLoading: true })),

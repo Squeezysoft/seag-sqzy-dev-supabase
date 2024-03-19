@@ -1,43 +1,23 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, Type, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSelectorComponent, ThemeSelectorComponent } from './components';
+import { LanguageSelectorComponent, NavigationDrawerComponent, ThemeSelectorComponent } from './components';
 import { Stream } from './models';
 import { SupabaseService } from './services';
 import { streamInitAction } from './state';
 
-interface ListItem {
-  title: string;
-  subtitle: string;
-  icon: string;
-  link: Array<string>;
-}
-
-interface ListCategory {
-  header: string;
-  items: Array<ListItem>;
-}
-
-const components: Array<Type<unknown>> = [LanguageSelectorComponent, ThemeSelectorComponent];
+const components: Array<Type<unknown>> = [LanguageSelectorComponent, NavigationDrawerComponent, ThemeSelectorComponent];
 const directives: Array<Type<unknown>> = [RouterLink, RouterLinkActive, RouterOutlet];
 const modules: Array<Type<unknown>> = [
-  CommonModule,
   MatButtonModule,
-  MatCardModule,
-  MatDividerModule,
   MatIconModule,
-  MatListModule,
   MatSidenavModule,
   MatToolbarModule,
   MatTooltipModule,
@@ -55,50 +35,12 @@ const services: Array<Type<unknown>> = [SupabaseService, TranslateService];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  readonly currentLocation: string = this.router.url;
-  readonly navigationCategories: Array<ListCategory> = [
-    {
-      header: 'Directory',
-      items: [
-        {
-          title: 'Dashboard',
-          subtitle: 'View all existing VODs.',
-          icon: 'dashboard',
-          link: ['/dashboard'],
-        },
-        {
-          title: 'Favorites',
-          subtitle: 'View your favorite VODs.',
-          icon: 'favorite',
-          link: ['/favorites'],
-        },
-      ],
-    },
-    {
-      header: 'System',
-      items: [
-        {
-          title: 'Settings',
-          subtitle: 'Adjust your profile settings.',
-          icon: 'settings',
-          link: ['/settings'],
-        },
-        {
-          title: 'About',
-          subtitle: 'Learn about this application.',
-          icon: 'help',
-          link: ['/about'],
-        },
-      ],
-    },
-  ];
   readonly title: string = 'Seagull Archive';
 
   @ViewChild('drawer', { static: true }) drawer: MatDrawer;
 
   constructor(
     private readonly iconRegistry: MatIconRegistry,
-    private readonly router: Router,
     private readonly sanitizer: DomSanitizer,
     private readonly store: Store,
     private readonly supabaseService: SupabaseService,
@@ -133,18 +75,6 @@ export class AppComponent implements OnInit {
     });
     console.log('AppComponent.ngOnInit.streams:', streams);
     this.store.dispatch(streamInitAction({ streams: streams }));
-  }
-
-  onBookmarkClicked(): void {
-    console.log('Bookmark');
-  }
-
-  onFavoritesClicked(): void {
-    console.log('Favorites');
-  }
-
-  onSettingsClicked(): void {
-    console.log('Settings');
   }
 
   async onToggleDrawerClicked(): Promise<void> {

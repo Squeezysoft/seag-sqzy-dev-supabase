@@ -23,27 +23,9 @@
 </mat-toolbar>
 <mat-sidenav-container class="sqzy-sidenav-container">
   <mat-sidenav #drawer mode="side">
-    <mat-nav-list class="sqzy-navigation-list">
-      @for (category of navigationCategories; track category.header; let last = $last) {
-        <h3 mat-subheader>{{ category.header }}</h3>
-        @for (item of category.items; track item.title) {
-          <mat-list-item
-            class="sqzy-navigation-list-item sqzy-navigation-list-item-{{ item.icon }}"
-            [routerLink]="item.link"
-            routerLinkActive="sqzy-navigation-list-item-active"
-          >
-            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-            <div matListItemTitle>{{ item.title }}</div>
-            <div matListItemLine>{{ item.subtitle }}</div>
-          </mat-list-item>
-        }
-        @if (!last) {
-          <mat-divider></mat-divider>
-        }
-      }
-    </mat-nav-list>
+    <sqzy-navigation-drawer></sqzy-navigation-drawer>
   </mat-sidenav>
-  <mat-sidenav-content class="sqzy-sidenav-content">
+  <mat-sidenav-content>
     <main class="sqzy-main">
       <div class="sqzy-content">
         <router-outlet></router-outlet>

@@ -1,14 +1,16 @@
 @if (vm$ | async; as vm) {
-  <img
-    #image
-    [src]="vm.activeSafeUrl"
-    [alt]="alt"
-    [width]="width"
-    [height]="height"
-    (mouseenter)="onMouseEnter($event)"
-    (mouseleave)="onMouseLeave($event)"
-    style="cursor: pointer"
-  />
-} @else {
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  @if (!vm.isLoading) {
+    <img
+      #image
+      [src]="vm.activeSafeUrl"
+      [alt]="alt"
+      [width]="width"
+      [height]="height"
+      (mouseenter)="onMouseEnter($event)"
+      (mouseleave)="onMouseLeave($event)"
+      [ngClass]="{ 'sqzy-storyboard-image': true, 'sqzy-storyboard-image-hover': isHovered }"
+    />
+  } @else {
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  }
 }
