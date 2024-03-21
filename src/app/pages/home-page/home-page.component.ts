@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+import { AppState } from '../../app.state';
 import { SocialShareComponent, StreamListItemComponent } from '../../components';
 import { SupabaseService } from '../../services';
 import { selectAllStreams } from '../../state';
@@ -60,7 +61,7 @@ export class HomePageComponent {
 
   constructor(
     private readonly bottomSheet: MatBottomSheet,
-    private readonly store: Store,
+    private readonly store: Store<AppState>,
   ) {}
 
   onSocialsClicked(): void {

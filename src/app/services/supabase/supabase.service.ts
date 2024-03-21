@@ -8,7 +8,9 @@ import {
   User,
 } from '@supabase/supabase-js';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SupabaseService {
   constructor(private readonly supabase: SupabaseClient) {}
 
