@@ -1,11 +1,12 @@
 {
   "name": "seag-sqzy-dev-supabase",
   "version": "0.0.0",
+  "homepage": "https://seag.sqzy.dev",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production --base-href /seag-sqzy-dev-supabase/",
+    "build:prod": "ng build --configuration production --base-href ./seag-sqzy-dev-supabase/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
